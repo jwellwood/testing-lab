@@ -1,0 +1,28 @@
+name: Lab-testing CI
+on: [push, pull_request]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: unit Tests
+        run: npm run test
+      - name: e2e Tests
+        run: npm run test:e2e:ci
+      - name: upload screenshots if test fails
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: ./cypress/screenshots
+      - name: upload videos if test fails
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: videos
+          path: ./cypress/videos

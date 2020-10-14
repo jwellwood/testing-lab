@@ -17,6 +17,7 @@ describe('mapProjectFromApiToVm tests', () => {
       id: '1',
       name: 'Name',
       isActive: true,
+      employees: [],
     };
     expect(mapProjectFromApiToVm(partialData)).toEqual({
       id: '1',

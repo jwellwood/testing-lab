@@ -16,10 +16,12 @@ const mapEmployeeSummaryListFromApiToVm = (
 export const mapProjectFromApiToVm = (
   project: apiModel.Project
 ): viewModel.Project => {
+  const emptyProject = viewModel.createEmptyProject();
   return Boolean(project)
     ? {
+        ...emptyProject,
         ...project,
         employees: mapEmployeeSummaryListFromApiToVm(project.employees),
       }
-    : viewModel.createEmptyProject();
+    : emptyProject;
 };
